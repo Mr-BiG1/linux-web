@@ -4,16 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BootScreenProps } from '../types';
 
+// ✅ Move outside so it's not treated as a dependency
+const bootMessages = [
+  'Initializing system...',
+  'Loading kernel modules...',
+  'Mounting filesystems...',
+  'Starting network services...',
+  'Loading user profile...',
+  'System ready.',
+];
+
 const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
   const [bootStage, setBootStage] = useState(0);
-  const bootMessages = [
-    'Initializing system...',
-    'Loading kernel modules...',
-    'Mounting filesystems...',
-    'Starting network services...',
-    'Loading user profile...',
-    'System ready.',
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,8 +62,8 @@ const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
             </div>
             <div className="text-gray-300 text-sm mb-4">{bootMessages[bootStage]}</div>
             <div className="w-full bg-gray-700 rounded-full h-2.5 mb-4">
-              <div 
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-300" 
+              <div
+                className="bg-blue-500 h-2.5 rounded-full transition-all duration-300"
                 style={{ width: `${(bootStage + 1) * (100 / bootMessages.length)}%` }}
               ></div>
             </div>
@@ -72,4 +74,4 @@ const BootScreen: React.FC<BootScreenProps> = ({ onBootComplete }) => {
   );
 };
 
-export default BootScreen; 
+export default BootScreen;

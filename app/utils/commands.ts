@@ -1,21 +1,20 @@
-import { CommandDefinition, CommandRegistry, CommandResult } from '../types';
+import { CommandRegistry, CommandResult } from '../types';
 import { projects } from '../data/projects';
 import { personalInfo } from '../data/personal';
 
-const formatBulletList = (items: string[]): string => {
-  return items.map(item => `• ${item}`).join('\n');
-};
+const formatBulletList = (items: string[]): string =>
+  items.map(item => `• ${item}`).join('\n');
 
 // Command aliases mapping
 const aliases: { [key: string]: string } = {
-  'ls': 'projects',
-  'h': 'help',
-  'sk': 'skills',
-  'p': 'projects',
-  'c': 'contact',
-  'cls': 'clear',
-  'w': 'whoami',
-  'a': 'about'
+  ls: 'projects',
+  h: 'help',
+  sk: 'skills',
+  p: 'projects',
+  c: 'contact',
+  cls: 'clear',
+  w: 'whoami',
+  a: 'about'
 };
 
 const commands: CommandRegistry = {
@@ -31,7 +30,7 @@ const commands: CommandRegistry = {
         const command = commands[actualCommand];
         if (command) {
           const aliasesList = Object.entries(aliases)
-            .filter(([_, cmd]) => cmd === actualCommand)
+            .filter(([, cmd]) => cmd === actualCommand)
             .map(([alias]) => alias);
 
           return `Command: ${command.name}${aliasesList.length ? ` (aliases: ${aliasesList.join(', ')})` : ''}
@@ -44,7 +43,7 @@ ${command.examples ? `\nExamples:\n${command.examples.map(ex => `  ${ex}`).join(
 
       const commandList = Object.values(commands).map(cmd => {
         const cmdAliases = Object.entries(aliases)
-          .filter(([_, command]) => command === cmd.name)
+          .filter(([, command]) => command === cmd.name)
           .map(([alias]) => alias);
         const aliasText = cmdAliases.length ? ` (${cmdAliases.join(', ')})` : '';
         return `${cmd.name.padEnd(10)}${aliasText.padEnd(15)} - ${cmd.description}`;
@@ -75,7 +74,7 @@ ${command.examples ? `\nExamples:\n${command.examples.map(ex => `  ${ex}`).join(
       if (args && args.length > 0) {
         const category = args[0].toLowerCase();
         const categories = Object.keys(personalInfo.skills);
-        
+
         if (category === 'cybersecurity') {
           return `${personalInfo.skills.cybersecurity.name}:\n${formatBulletList(personalInfo.skills.cybersecurity.items)}`;
         }
@@ -85,8 +84,7 @@ ${command.examples ? `\nExamples:\n${command.examples.map(ex => `  ${ex}`).join(
         return `Unknown category: ${category}. Available categories: ${categories.join(', ')}`;
       }
 
-      return `${personalInfo.skills.cybersecurity.name}:\n${formatBulletList(personalInfo.skills.cybersecurity.items)}
-
+      return `${personalInfo.skills.cybersecurity.name}:\n${formatBulletList(personalInfo.skills.cybersecurity.items)}\n
 ${personalInfo.skills.development.name}:\n${formatBulletList(personalInfo.skills.development.items)}`;
     }
   },
@@ -97,32 +95,28 @@ ${personalInfo.skills.development.name}:\n${formatBulletList(personalInfo.skills
     usage: 'projects [search]',
     examples: ['projects', 'projects security', 'projects react'],
     execute: (args?: string[]): string => {
-      try {
-        let filteredProjects = projects;
-        
-        if (args && args.length > 0) {
-          const searchTerm = args[0].toLowerCase();
-          filteredProjects = projects.filter(project => 
-            project.title.toLowerCase().includes(searchTerm) ||
-            project.description.toLowerCase().includes(searchTerm) ||
-            project.technologies.some(tech => tech.toLowerCase().includes(searchTerm))
-          );
-          
-          if (filteredProjects.length === 0) {
-            return `No projects found matching: "${searchTerm}"\nTry searching with different keywords or use 'projects' to see all projects.`;
-          }
-        }
+      let filteredProjects = projects;
 
-        const projectsList = filteredProjects.map(project => `
+      if (args && args.length > 0) {
+        const searchTerm = args[0].toLowerCase();
+        filteredProjects = projects.filter(project =>
+          project.title.toLowerCase().includes(searchTerm) ||
+          project.description.toLowerCase().includes(searchTerm) ||
+          project.technologies.some(tech => tech.toLowerCase().includes(searchTerm))
+        );
+
+        if (filteredProjects.length === 0) {
+          return `No projects found matching: "${searchTerm}"\nTry searching with different keywords or use 'projects' to see all projects.`;
+        }
+      }
+
+      const projectsList = filteredProjects.map(project => `
 ${project.title}
 - ${project.description}
 - Technologies: ${project.technologies.join(', ')}
-${project.github ? `- GitHub: ${project.github}` : ''}`).join('\n');
+${project.githubUrl ? `- GitHub: ${project.githubUrl}` : ''}`).join('\n');
 
-        return `${filteredProjects.length} Project${filteredProjects.length === 1 ? '' : 's'} Found:${projectsList}`;
-      } catch (error) {
-        throw new Error('Failed to process projects. Please try again.');
-      }
+      return `${filteredProjects.length} Project${filteredProjects.length === 1 ? '' : 's'} Found:${projectsList}`;
     }
   },
 
@@ -130,16 +124,12 @@ ${project.github ? `- GitHub: ${project.github}` : ''}`).join('\n');
     name: 'contact',
     description: 'Show contact information',
     execute: (): string => {
-      try {
-        if (!personalInfo.contacts || personalInfo.contacts.length === 0) {
-          return 'Contact information is currently unavailable.';
-        }
-        return personalInfo.contacts
-          .map(contact => `${contact.platform}: ${contact.url}`)
-          .join('\n');
-      } catch (error) {
-        throw new Error('Failed to retrieve contact information. Please try again.');
+      if (!personalInfo.contacts || personalInfo.contacts.length === 0) {
+        return 'Contact information is currently unavailable.';
       }
+      return personalInfo.contacts
+        .map(contact => `${contact.platform}: ${contact.url}`)
+        .join('\n');
     }
   },
 
@@ -151,48 +141,37 @@ ${project.github ? `- GitHub: ${project.github}` : ''}`).join('\n');
 };
 
 export const executeCommand = (commandLine: string): CommandResult => {
-  try {
-    const trimmedCommand = commandLine.trim();
-    
-    if (!trimmedCommand) {
+  const trimmedCommand = commandLine.trim();
+
+  if (!trimmedCommand) {
+    return { success: true, output: '' };
+  }
+
+  const [cmd, ...args] = trimmedCommand.toLowerCase().split(' ');
+  const actualCommand = aliases[cmd] || cmd;
+
+  if (actualCommand in commands) {
+    try {
+      const output = commands[actualCommand].execute(args);
+      return { success: true, output };
+    } catch (err) {
       return {
-        success: true,
-        output: ''
+        success: false,
+        output: `Error executing command: ${err instanceof Error ? err.message : 'An unexpected error occurred'}`
       };
     }
-
-    const [cmd, ...args] = trimmedCommand.toLowerCase().split(' ');
-    const actualCommand = aliases[cmd] || cmd;
-    
-    if (actualCommand in commands) {
-      try {
-        const output = commands[actualCommand].execute(args);
-        return { success: true, output };
-      } catch (error) {
-        return { 
-          success: false, 
-          output: `Error executing command: ${error instanceof Error ? error.message : 'An unexpected error occurred'}`
-        };
-      }
-    }
-    
-    // Find similar commands for suggestions
-    const similarCommands = [...Object.keys(commands), ...Object.keys(aliases)]
-      .filter(c => c.startsWith(cmd) || c.includes(cmd))
-      .slice(0, 3);
-
-    const suggestion = similarCommands.length 
-      ? `\nDid you mean: ${similarCommands.join(', ')}?` 
-      : '\nType \'help\' to see available commands.';
-    
-    return {
-      success: false,
-      output: `Command not found: ${cmd}.${suggestion}`
-    };
-  } catch (error) {
-    return {
-      success: false,
-      output: 'An unexpected error occurred while processing your command. Please try again.'
-    };
   }
-}; 
+
+  const similarCommands = [...Object.keys(commands), ...Object.keys(aliases)]
+    .filter(c => c.startsWith(cmd) || c.includes(cmd))
+    .slice(0, 3);
+
+  const suggestion = similarCommands.length
+    ? `\nDid you mean: ${similarCommands.join(', ')}?`
+    : "\nType 'help' to see available commands.";
+
+  return {
+    success: false,
+    output: `Command not found: ${cmd}.${suggestion}`
+  };
+};

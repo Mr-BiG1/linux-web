@@ -48,13 +48,13 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
               <div className="flex-1">
                 <h3 className="text-gray-300 text-xl mb-4">Cybersecurity Specialist & Developer</h3>
                 <p className="text-gray-400 mb-6">
-                  Greetings, stranger 👋 <br />
-                  I'm Darsan — a builder, breaker, and defender of tech systems.
+                  Greetings, stranger 👋 I&apos;m Darsan — a builder, breaker, and defender of tech systems.
+
 
                   With a dual passion for cybersecurity and software development, I thrive at the intersection of breaking boundaries and building resilient, innovative solutions. From hardening network defenses to developing AI-powered trading bots, I engineer systems that are secure, scalable, and smart.
                 </p>
                 <div className="flex gap-6">
-                  <a href="https://github.com/Mr-BiG1" target="_blank" rel="noopener noreferrer"  aria-label="Visit my GitHub" className="text-blue-500 hover:text-blue-400">
+                  <a href="https://github.com/Mr-BiG1" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub" className="text-blue-500 hover:text-blue-400">
                     GitHub
                   </a>
                   <a href="https://www.linkedin.com/in/darsan-sabu-george" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile" className="text-blue-500 hover:text-blue-400">
