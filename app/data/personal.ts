@@ -44,7 +44,7 @@ me to approach security challenges with a developer's mindset and vice versa.`,
         "Python",
         "Node.js",
         "React/Next.js",
-        "SQL",
+        "SQL/NOSQL",
         "Git/GitHub"
       ]
     }
