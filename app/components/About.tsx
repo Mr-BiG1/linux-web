@@ -44,7 +44,7 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
             <div className="flex items-start gap-8 mb-12">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://avatars.githubusercontent.com/u/103304514"
+                  src="https://avatars.githubusercontent.com/u/103304514?v=4"
                   alt={personalInfo.name}
                   width={128}
                   height={128}
@@ -91,17 +91,17 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
-            <Image
-                  src={`https://ghchart.rshah.org/'Mr-BiG1'}`}
-                  alt="GitHub Contribution Chart"
-                  width={700}
-                  height={150}
-                  className="w-full h-auto rounded shadow"
-                  unoptimized 
-                />
-
+            <div className="flex justify-center mt-8">
+              <Image
+                src="https://github-readme-activity-graph.vercel.app/graph?username=Mr-BiG1&theme=react-dark"
+                alt="GitHub Contribution Graph"
+                width={800}
+                height={300}
+                className="rounded shadow"
+                unoptimized
+              />
             </div>
+
             <p className="text-green-500 mt-8 text-center font-mono text-sm">
               &quot;Hack the planet.&quot; — Darsan, probably
             </p>
