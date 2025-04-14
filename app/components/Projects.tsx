@@ -1,52 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface ProjectsProps {
   onClose: () => void;
 }
 
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  githubUrl: string;
+}
+
 const Projects: React.FC<ProjectsProps> = ({ onClose }) => {
-  const projects = [
-    {
-      title: 'Click Safe',
-      description:
-        'Protect yourself from online scams, phishing attacks, and fraudulent websites in real-time! Click Safe uses AI-powered analysis and community reporting to detect and prevent website scams before they can cause harm.',
-      technologies: [
-        'HTML, CSS, JavaScript',
-        'Node.js',
-        'Express',
-        'MongoDB',
-        'Google Safe Browsing API',
-        'PhishTank API',
-        'Phish API',
-        'OpenAI GPT-4 API',
-      ],
-      githubUrl: 'https://github.com/Mr-BiG1/click-safe',
-    },
-    {
-      title: 'Genbot',
-      description:
-        'This WhatsApp AI Chatbot is a powerful and intelligent assistant that integrates Google’s Gemini AI with WhatsApp using the Baileys library. The bot can chat intelligently, handle custom commands, and provide automated responses securely.',
-      technologies: ['Node.js', 'OpenAI', 'qrcode-terminal'],
-      githubUrl: 'https://github.com/Mr-BiG1/Genbot',
-    },
-    {
-      title: 'ESP32 Weather App',
-      description:
-        'An ESP32-based weather station that displays real-time weather data on a 3.2" ILI9341 TFT screen. It fetches data from the OpenWeatherMap API, shows animated weather icons, and includes a web interface for updating city and API key.',
-      technologies: ['ESP32', 'TFT Display (ILI9341)', 'Wi-Fi connection'],
-      githubUrl: 'https://github.com/Mr-BiG1/ESP32-Weather-App',
-    },
-    {
-      title: 'TGA Tax Tracker',
-      description:
-        'A secure and user-friendly personal finance management app. It helps users track expenses, manage payments, and maintain financial health. Built using Flutter and Firebase for real-time sync and a smooth UI.',
-      technologies: ['Flutter (Dart)', 'Firebase'],
-      githubUrl: 'https://github.com/Mr-BiG1/finance_tracker',
-    },
-  ];
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    fetch('/api/github-projects')
+      .then(res => res.json())
+      .then(data => setProjects(data));
+  }, []);
 
   return (
     <motion.div
