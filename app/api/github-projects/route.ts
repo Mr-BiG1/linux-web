@@ -1,4 +1,3 @@
-
 interface GitHubRepo {
     name: string;
     description: string | null;
@@ -6,7 +5,6 @@ interface GitHubRepo {
     language: string | null;
     fork: boolean;
 }
-
 
 export async function GET() {
     const response = await fetch('https://api.github.com/users/Mr-BiG1/repos');
