@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { personalInfo } from '../data/personal'; 
+import { personalInfo } from '../data/personal';
+import Image from 'next/image';
 
 interface AboutProps {
   onClose: () => void;
@@ -42,10 +43,12 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
           <div className="p-6 font-mono">
             <div className="flex items-start gap-8 mb-12">
               <div className="flex-shrink-0">
-                <img
+                <Image
                   src="https://avatars.githubusercontent.com/u/103304514"
                   alt={personalInfo.name}
-                  className="rounded-full w-32 h-32 object-cover border border-blue-500"
+                  width={128}
+                  height={128}
+                  className="rounded-full border border-blue-500"
                 />
               </div>
               <div className="flex-1">
@@ -59,8 +62,8 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
                         contact.platform === 'Email'
                           ? `mailto:${contact.url}`
                           : contact.url.startsWith('http')
-                          ? contact.url
-                          : `https://${contact.url}`
+                            ? contact.url
+                            : `https://${contact.url}`
                       }
                       target="_blank"
                       rel="noopener noreferrer"
@@ -90,8 +93,9 @@ const About: React.FC<AboutProps> = ({ onClose }) => {
             </div>
 
             <p className="text-green-500 mt-8 text-center font-mono text-sm">
-              // "Hack the planet." — Darsan, probably
+              &quot;Hack the planet.&quot; — Darsan, probably
             </p>
+
           </div>
         </div>
       </div>
