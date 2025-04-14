@@ -137,12 +137,12 @@ const Projects: React.FC<ProjectsProps> = ({ onClose }) => {
           </button>
         </div>
 
-        {/* Project Grid */}
+        {/* Project Grid*/}
         <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 font-mono overflow-y-auto flex-1">
           {isLoading ? (
             <div className="col-span-full flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
-              <span className="sr-only">Loading projects...</span>
+              <span className="sr-only">Loading projects....</span>
             </div>
           ) : error ? (
             <div className="col-span-full text-center py-12 text-red-400">
