@@ -52,15 +52,15 @@ me to approach security challenges with a developer's mindset and vice versa.`,
   contacts: [
     {
       platform: "GitHub",
-      url: "https://github.com/darsangeorge"
+      url: "https://github.com/Mr-BiG1"
     },
     {
       platform: "LinkedIn",
-      url: "https://linkedin.com/in/darsangeorge"
+      url: "www.linkedin.com/in/darsan-sabu-george"
     },
     {
       platform: "Email",
-      url: "contact@darsangeorge.dev"
+      url: "darsansabu09@gmail.com"
     }
   ]
 }; 
