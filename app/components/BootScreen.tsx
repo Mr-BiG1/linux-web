@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BootScreenProps } from '../types';
 
-// ✅ Move outside so it's not treated as a dependency
+
 const bootMessages = [
   'Initializing system...',
   'Loading kernel modules...',
