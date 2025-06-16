@@ -21,7 +21,7 @@ export interface PersonalInfo {
 
 export const personalInfo: PersonalInfo = {
   name: "Darsan Sabu George",
-  title: "Cybersecurity Specialist & Developer",
+  title: "Hii",
   about: `I am a passionate cybersecurity specialist and developer with expertise in 
 penetration testing, network security, and web development. My dual background allows 
 me to approach security challenges with a developer's mindset and vice versa.`,
