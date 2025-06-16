@@ -23,7 +23,9 @@ export const personalInfo: PersonalInfo = {
   name: "Darsan Sabu George",
   title: "Hii",
   about: `Hi, I’m Darsan — a cybersecurity enthusiast and developer who enjoys solving real-world tech problems. I have experience in penetration testing, network security, and building secure web applications.
+
 What makes me different is that I understand both how systems are built and how they can be broken. This helps me approach challenges from both a developer’s and a hacker’s point of view, making my solutions practical and secure.
+
 I’m always learning, exploring new tools, and working on personal projects that push my skills further. Whether it’s improving security, fixing issues, or building something useful — I’m all in.
 
 Feel free to check out my work or get in touch!`,
